@@ -26,12 +26,12 @@ https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/k6 を参�
   - [x] ~~__VU - VU番号~~
   - [x] ~~__ITER - イテレーション番号~~
   - [x] ~~open() - ファイル読み込み~~
-- [ ] `k6/http` HTTP クライアント
-  - [ ] request() - HTTPリクエスト
-  - [ ] get(), post(), put(), delete(), patch()
-  - [ ] batch() - 並列リクエスト
-  - [ ] Response型
-  - [ ] Params型
+- [x] ~~`k6/http` HTTP クライアント~~
+  - [x] ~~request() - HTTPリクエスト~~
+  - [x] ~~get(), post(), put(), delete(), patch()~~
+  - [x] ~~batch() - 並列リクエスト~~
+  - [x] ~~Response型~~
+  - [x] ~~Params型~~
 
 ### Priority 2: Metrics & Options (設定・計測)
 - [ ] `k6/metrics` カスタムメトリクス
