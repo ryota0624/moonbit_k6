@@ -2,12 +2,18 @@
 
 ///| Test Options
 
-/// k6 test options as a JavaScript object
+/// k6 test options using Options type
 pub fn options() -> @core.Any {
-  let opts = @core.new_object()
-  opts["vus"] = @core.any(10)
-  opts["duration"] = @core.any("30s")
-  opts
+  // Create thresholds
+  let thresholds = Map::new()
+  thresholds.set("http_req_duration", ["p(95)<500"])
+
+  // Build options with builder pattern
+  @k6.Options::default()
+    .vus(10)
+    .duration("30s")
+    .thresholds(thresholds)
+    .to_js()
 }
 
 ///| Test Scenario
