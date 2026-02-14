@@ -5,6 +5,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prebuild": "moon build --target js --release",
     "build": "vite build",
     "dev": "vite",
     "k6": "k6 run dist/script.js",

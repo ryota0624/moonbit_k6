@@ -31,9 +31,11 @@ npm run build
 ```
 
 以下の処理が自動的に実行されます:
-1. Viteが`vite-plugin-moonbit`を使ってMoonBitコードをコンパイル
-2. 出力を `dist/script.js` に生成
-3. k6-post-buildプラグインがk6互換形式（`export default` と `export options`）に変換
+1. `moon build --target js --release` でMoonBitコードをコンパイル（prebuild）
+2. Viteが`vite-plugin-moonbit`を使ってバンドル
+3. 出力を `dist/script.js` に生成（k6互換形式）
+
+**ワンコマンドで完結**します。postScriptは不要です。
 
 ## 負荷テストの実行
 
@@ -64,20 +66,33 @@ k6 run dist/script.js
 - `vite-plugin-moonbit`の依存関係に注意が必要
 - 追加の設定が必要な場合がある
 
-## vite.config.js
+## 仕組み
 
-Vite設定ファイルには以下が含まれています:
-
-- `vite-plugin-moonbit`: MoonBitコードのコンパイル
-- `k6-post-build`: k6互換形式への自動変換プラグイン
-
-```javascript
+### package.json
+`prebuild`スクリプトでMoonBitのreleaseビルドを実行:
+```json
 {
-  name: "k6-post-build",
-  closeBundle() {
-    execSync("node scripts/post-build.js");
-  },
+  "prebuild": "moon build --target js --release",
+  "build": "vite build"
 }
+```
+
+### index.js
+MoonBitモジュールをimportし、k6形式で再exportします:
+```javascript
+import * as k6Example from "mbt:ryota0624/k6-example";
+
+export const options = k6Example.options();
+export default k6Example.default;
+```
+
+### vite.config.js
+`vite-plugin-moonbit`でMoonBitモジュールを解決:
+```javascript
+moonbit({
+  target: "js",
+  buildMode: "release",
+})
 ```
 
 ## スクリプトの構造

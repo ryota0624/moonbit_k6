@@ -5,7 +5,8 @@ export default defineConfig({
   plugins: [
     moonbit({
       target: "js",
-      watch: true,
+      buildMode: "release",
+      watch: false,
       showLogs: true,
     }),
   ],
@@ -19,7 +20,6 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        // Ensure k6 compatible exports
         exports: "named",
       },
     },

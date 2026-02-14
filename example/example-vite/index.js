@@ -1,5 +1,7 @@
-import m from "mbt:ryota0624/k6-example";
+import * as k6Example from "mbt:ryota0624/k6-example";
 
-export default function () {
-  m();
-}
+// Re-export k6 options
+export const options = k6Example.options();
+
+// Re-export default test function
+export default k6Example.default;
