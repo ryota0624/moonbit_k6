@@ -5,36 +5,37 @@
 
 ///|
 /// FFI: k6 check function
+#module("k6")
 extern "js" fn ffi_check(val : @core.Any, checks : @core.Any) -> @core.Any =
-  #| (val, checks) => check(val, checks)
+  "check"
 
 ///| Core API - fail (FFI)
 
 ///|
 /// FFI: k6 fail function
-extern "js" fn ffi_fail(message : String) -> Unit =
-  #| (message) => fail(message)
+#module("k6")
+extern "js" fn ffi_fail(message : String) -> Unit = "fail"
 
 ///| Core API - group (FFI)
 
 ///|
 /// FFI: k6 group function
-extern "js" fn ffi_group(name : String, body : @core.Any) -> @core.Any =
-  #| (name, fn) => group(name, fn)
+#module("k6")
+extern "js" fn ffi_group(name : String, body : @core.Any) -> @core.Any = "group"
 
 ///| Core API - sleep (FFI)
 
 ///|
 /// FFI: k6 sleep function
-extern "js" fn ffi_sleep(duration : Double) -> Unit =
-  #| (duration) => sleep(duration)
+#module("k6")
+extern "js" fn ffi_sleep(duration : Double) -> Unit = "sleep"
 
 ///| Core API - randomSeed (FFI)
 
 ///|
 /// FFI: k6 randomSeed function
-extern "js" fn ffi_random_seed(seed : Int) -> Unit =
-  #| (seed) => randomSeed(seed)
+#module("k6")
+extern "js" fn ffi_random_seed(seed : Int) -> Unit = "randomSeed"
 
 ///| Global Variables (FFI)
 
@@ -57,8 +58,8 @@ extern "js" fn ffi_iter() -> Int =
 
 ///|
 /// FFI: k6 open function
-extern "js" fn ffi_open(filename : String) -> String =
-  #| (filename) => open(filename)
+#module("k6")
+extern "js" fn ffi_open(filename : String) -> String = "open"
 
 ///| Public API - check
 
