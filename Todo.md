@@ -70,7 +70,7 @@ https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/k6 を参�
 - [x] ~~exampleディレクトリの実装~~
   - [x] ~~MoonBitで書いたk6スクリプトのサンプル~~
   - [x] ~~vite-plugin-moonbitでバンドル設定~~
-  - [ ] export default / export options の出力確認 ⚠️ **要対応**
+  - [x] ~~export default / export options の出力確認~~
   - [x] ~~docker-compose.ymlの作成~~
     - [x] ~~負荷テスト対象のサンプルサーバ~~
     - [x] ~~k6実行環境~~
@@ -95,13 +95,16 @@ https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/k6 を参�
 ✅ k6コアAPI実装（check, fail, group, sleep, random_seed, env, vu, iter, open）
 ✅ FFI基盤整備（mizchi/js統合）
 ✅ Example環境構築（docker-compose含む）
+✅ k6互換出力形式対応（export default / export options）
+✅ Viteビルド対応（example-vite）
+✅ Moon Buildビルド対応（example-moonbit）
 
 ## 次のステップ
 
-### 最優先: k6互換出力の実装
-現在、MoonBitコードは正常にJavaScriptにコンパイルされますが、k6が要求する形式（`export default function()`と`export options`）に未対応です。
+### 最優先: k6/http モジュールの実装
+基本的なHTTPリクエスト機能を実装し、実際の負荷テストが可能な状態にする。
 
-解決方法の候補:
-1. vite-plugin-moonbitの設定で対応
-2. ポストプロセススクリプトで変換
-3. 手動でラッパーJSファイルを作成
+- [ ] request() - HTTPリクエスト
+- [ ] get(), post(), put(), delete(), patch()
+- [ ] Response型
+- [ ] Params型
