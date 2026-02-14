@@ -8,16 +8,15 @@
     "build:moon": "moon build --target js",
     "build:copy": "mkdir -p dist && cp _build/js/debug/build/src/src.js dist/script.js",
     "build:post": "node scripts/post-build.js",
+    "build": "npm run build:moon && npm run build:copy && npm run build:post",
     "build:vite": "vite build",
-    "build": "npm run build:vite",
-    "build:manual": "npm run build:moon && npm run build:copy && npm run build:post",
     "k6": "k6 run dist/script.js",
     "k6:docker": "docker-compose up"
   },
   "devDependencies": {
     "@types/k6": "^0.52.0",
     "vite": "^5.0.0",
-    "vite-plugin-moonbit": "latest"
+    "vite-plugin-moonbit": "^0.1.5"
   },
   "engines": {
     "node": ">=18"
