@@ -9,7 +9,7 @@
     "build:copy": "mkdir -p dist && cp _build/js/debug/build/src/src.js dist/script.js",
     "build:post": "node scripts/post-build.js",
     "build": "npm run build:moon && npm run build:copy && npm run build:post",
-    "k6": "k6 run dist/script.js",
+    "k6": "k6 run _build/js/debug/build/src/src.js",
     "k6:docker": "docker-compose up"
   },
   "devDependencies": {
