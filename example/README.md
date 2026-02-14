@@ -26,10 +26,25 @@ npm run build
 pnpm build
 ```
 
-以下の処理が実行されます:
-1. MoonBitで `src/script.mbt` をJavaScriptにコンパイル
+**ビルド方法（2つの選択肢）:**
+
+### 方法1: Viteビルド（推奨）
+```bash
+npm run build
+```
+vite-plugin-moonbitを使用してビルドします。以下の処理が実行されます:
+1. Viteがvite-plugin-moonbitを使ってMoonBitコードをコンパイル
+2. 出力を `dist/script.js` に生成
+3. 自動的にk6互換形式（`export default` と `export options`）に変換
+
+### 方法2: 手動ビルド
+```bash
+npm run build:manual
+```
+MoonBitコマンドを直接使用してビルドします。以下の処理が実行されます:
+1. `moon build --target js` でコンパイル
 2. 出力を `dist/script.js` にコピー
-3. k6互換形式（`export default` と `export options`）に変換
+3. k6互換形式に変換
 
 ## 負荷テストの実行
 
