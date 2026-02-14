@@ -18,7 +18,16 @@ export default defineConfig({
       formats: ["es"],
     },
     rollupOptions: {
-      external: ["k6", "k6/execution", "k6/http", "k6/metrics", "k6/ws"],
+      external: [
+        "k6",
+        "k6/execution",
+        "k6/http",
+        "k6/metrics",
+        "k6/ws",
+        "k6/encoding",
+        "k6/crypto",
+        "k6/data",
+      ],
       output: {
         exports: "named",
       },
