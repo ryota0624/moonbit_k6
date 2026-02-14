@@ -13,8 +13,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup MoonBit
-        uses: moonbitlang/setup-moonbit@v1
+      - name: Install MoonBit
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          echo "$HOME/.moon/bin" >> $GITHUB_PATH
+
+      - name: Update dependencies
+        run: moon update
 
       - name: Check library for errors and warnings
         run: |
@@ -35,16 +40,16 @@ jobs:
         image: kennethreitz/httpbin:latest
         ports:
           - 8080:80
-        options: >-
-          --health-cmd "curl -f http://localhost/status/200"
-          --health-interval 5s
-          --health-timeout 3s
-          --health-retries 3
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup MoonBit
-        uses: moonbitlang/setup-moonbit@v1
+      - name: Install MoonBit
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          echo "$HOME/.moon/bin" >> $GITHUB_PATH
+
+      - name: Update dependencies
+        run: moon update
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -53,6 +58,25 @@ jobs:
           cache: "npm"
           cache-dependency-path: test_on_k6/package-lock.json
       - uses: grafana/setup-k6-action@v1
+
+      - name: Wait for httpbin to be ready
+        run: |
+          echo "Waiting for httpbin service..."
+          for i in {1..30}; do
+            if curl -f http://localhost:8080/status/200 > /dev/null 2>&1; then
+              echo "httpbin is ready!"
+              exit 0
+            fi
+            echo "Attempt $i: httpbin not ready yet, waiting..."
+            sleep 2
+          done
+          echo "httpbin failed to start"
+          exit 1
+
+      - name: Install npm dependencies
+        working-directory: test_on_k6
+        run: npm install
+
       - name: Run tests with verification
         working-directory: test_on_k6
         env:
