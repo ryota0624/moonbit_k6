@@ -6,7 +6,6 @@ export default defineConfig({
     moonbit({
       target: "js",
       buildMode: "release",
-      watch: false,
       showLogs: true,
     }),
   ],
@@ -19,6 +18,7 @@ export default defineConfig({
       formats: ["es"],
     },
     rollupOptions: {
+      external: ["k6", "k6/execution"],
       output: {
         exports: "named",
       },
