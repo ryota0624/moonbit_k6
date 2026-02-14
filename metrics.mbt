@@ -19,7 +19,6 @@ extern "js" fn ffi_counter_new(name : String, is_time : Bool) -> @core.Any =
 
 ///|
 /// FFI: Counter add
-#module("k6/metrics")
 extern "js" fn ffi_counter_add(counter : @core.Any, value : Double) -> Unit =
   #|(counter, value) => counter.add(value)
 
@@ -54,7 +53,6 @@ extern "js" fn ffi_gauge_new(name : String, is_time : Bool) -> @core.Any =
 
 ///|
 /// FFI: Gauge add
-#module("k6/metrics")
 extern "js" fn ffi_gauge_add(gauge : @core.Any, value : Double) -> Unit =
   #|(gauge, value) => gauge.add(value)
 
@@ -88,7 +86,6 @@ extern "js" fn ffi_rate_new(name : String, is_time : Bool) -> @core.Any = "Rate"
 
 ///|
 /// FFI: Rate add
-#module("k6/metrics")
 extern "js" fn ffi_rate_add(rate : @core.Any, value : Bool) -> Unit =
   #|(rate, value) => rate.add(value)
 
@@ -123,7 +120,6 @@ extern "js" fn ffi_trend_new(name : String, is_time : Bool) -> @core.Any =
 
 ///|
 /// FFI: Trend add
-#module("k6/metrics")
 extern "js" fn ffi_trend_add(trend : @core.Any, value : Double) -> Unit =
   #|(trend, value) => trend.add(value)
 

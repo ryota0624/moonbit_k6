@@ -7,7 +7,7 @@ options(
   "supported-targets": [ "js" ],
   link: {
     "js": {
-      "exports": [ "default", "options" ],
+      "exports": [ "default", "options", "setup", "teardown" ],
       "format": "esm",
     },
   },
