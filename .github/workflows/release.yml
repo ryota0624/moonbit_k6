@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       dry-run:
-        description: 'Dry run (no actual changes)'
+        description: "Dry run (no actual changes)"
         type: boolean
         default: false
 
@@ -86,6 +86,20 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          # Configure mooncakes credentials (skip if no token configured)
+          - name: Setup mooncakes credentials
+            env:
+              MOONCAKES_TOKEN: ${{ secrets.MOONCAKES_TOKEN }}
+              MOONCAKES_USERNAME: ${{ secrets.MOONCAKES_USERNAME }}
+            run: |
+              if [ -z "$MOONCAKES_TOKEN" ]; then
+                echo "No mooncakes token configured, skipping credentials setup"
+                exit 0
+              fi
+              mkdir -p ~/.moon
+              jq -n --arg token "$MOONCAKES_TOKEN" --arg username "$MOONCAKES_USERNAME" \
+                '{"token": $token, "username": $username}' > ~/.moon/credentials.json
+              chmod 600 ~/.moon/credentials.json
 
       - name: Create release
         env:
