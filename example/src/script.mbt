@@ -1,9 +1,20 @@
 // Simple k6 load test script in MoonBit
 
+///| Test Options
+
+/// k6 test options as a JavaScript object
+pub fn options() -> @core.Any {
+  let opts = @core.new_object()
+  opts["vus"] = @core.any(10)
+  opts["duration"] = @core.any("30s")
+  opts
+}
+
 ///| Test Scenario
 
+///|
 /// Main entry point for k6 - executed for each VU iteration
-fn main {
+pub fn default() -> Unit {
   @k6.group("HTTP GET Test", fn() {
     // Get environment variable
     let url = match @k6.env("TEST_URL") {

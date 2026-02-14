@@ -1,8 +1,14 @@
 import {
   "ryota0624/k6" @k6,
+  "mizchi/js/core" @core,
 }
 
 options(
-  "is-main": true,
   "supported-targets": [ "js" ],
+  link: {
+    "js": {
+      "exports": [ "default", "options" ],
+      "format": "esm",
+    },
+  },
 )
