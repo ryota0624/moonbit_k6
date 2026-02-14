@@ -34,19 +34,29 @@ test_counter...................: 3       X/s
 
 ## クイックスタート
 
-### 🚀 自動検証付きCI実行（推奨）
+### 🚀 自動検証付きCI実行（推奨・ローカル環境）
 
 ```bash
-npm run ci:verify
+npm run ci:verify:local
 ```
 
 このコマンドは以下を自動実行：
 1. `npm run build` - テストコードをビルド（MoonBit → JS）
 2. `npm run build:verify` - 検証スクリプトをビルド（MoonBit → JS）
-3. `npm run test:json` - k6実行 + summary.json生成
-4. `npm run verify` - **期待値との自動検証** ← NEW!
+3. `npm run docker:up` - httpbinコンテナ起動
+4. `npm run test:json` - k6実行 + summary.json生成
+5. `npm run docker:down` - httpbinコンテナ停止
+6. `npm run verify` - **期待値との自動検証**
 
 **期待値と一致しない場合、exit code 1で終了します。**
+
+### 🐳 Docker環境について
+
+test_on_k6は**ローカルのhttpbinコンテナ**に対してテストを実行します。外部ネットワークへの依存がないため、安定したテスト実行が可能です。
+
+**環境変数 `HTTPBIN_URL`:**
+- 未設定: `http://localhost:8080` （デフォルト）
+- 設定例: `HTTPBIN_URL=https://httpbin.org npm run ci:verify`
 
 ### ワンコマンドで全テスト実行（自動検証なし）
 
@@ -65,18 +75,37 @@ npm run ci
 # 1. 依存関係のインストール
 npm install
 
-# 2. テストコードをビルド
+# 2. httpbinコンテナを起動
+npm run docker:up
+
+# 3. テストコードをビルド
 npm run build
 
-# 3. 検証スクリプトをビルド
+# 4. 検証スクリプトをビルド
 npm run build:verify
 
-# 4. k6でテスト実行 + JSON出力
+# 5. k6でテスト実行 + JSON出力
 npm run test:json
 
-# 5. 自動検証
+# 6. 自動検証
 npm run verify
 # → ✅ All expectations passed! または ❌ エラー表示
+
+# 7. httpbinコンテナを停止
+npm run docker:down
+```
+
+### Docker Compose コマンド
+
+```bash
+# httpbinコンテナを起動
+npm run docker:up
+
+# httpbinコンテナのログを表示
+npm run docker:logs
+
+# httpbinコンテナを停止
+npm run docker:down
 ```
 
 ## 🤖 自動検証機能
@@ -245,15 +274,27 @@ https://k6.io/docs/getting-started/installation/
 
 ## CI/CD統合
 
-GitHub ActionsやGitLab CIで使用する場合：
+GitHub Actionsではserviceコンテナとしてhttpbinが起動します：
 
 ```yaml
 # .github/workflows/test.yml
-- name: Run k6 tests
-  run: |
-    cd test_on_k6
-    npm run ci
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      httpbin:
+        image: kennethreitz/httpbin:latest
+        ports:
+          - 8080:80
+    steps:
+      - name: Run k6 tests
+        working-directory: test_on_k6
+        env:
+          HTTPBIN_URL: http://localhost:8080
+        run: npm run ci:verify
 ```
+
+ローカル環境では`docker-compose.yml`を使用してhttpbinを起動します。
 
 ## example-vite との違い
 

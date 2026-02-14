@@ -25,8 +25,14 @@ pub fn options() -> @core.Any {
 ///| Setup Phase
 
 pub fn setup() -> @core.Any {
+  // 環境変数HTTPBIN_URLから取得、未設定の場合はローカルを使用
+  let base_url = match @k6.env("HTTPBIN_URL") {
+    Some(url) => url
+    None => "http://localhost:8080"
+  }
+
   let config = @k6.TestSetup::new()
-    .base_url("https://httpbin.org")
+    .base_url(base_url)
     .timeout("10s")
     .build()
 

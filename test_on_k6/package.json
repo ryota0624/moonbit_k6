@@ -8,11 +8,17 @@
     "prebuild": "moon build --target js --release",
     "build": "vite build",
     "build:verify": "cd verify && moon build --target js --release",
+    "docker:up": "docker compose up -d && sleep 5",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f httpbin",
     "test": "k6 run dist/test.js",
     "test:json": "k6 run --summary-export=summary.json dist/test.js",
+    "test:local": "npm run docker:up && npm run test ; npm run docker:down",
+    "test:json:local": "npm run docker:up && npm run test:json ; npm run docker:down",
     "verify": "node verify/_build/js/release/build/k6-verify.js",
     "ci": "npm install && npm run build && npm run test",
-    "ci:verify": "npm run build && npm run build:verify && npm run test:json && npm run verify"
+    "ci:verify": "npm run build && npm run build:verify && npm run test:json && npm run verify",
+    "ci:verify:local": "npm run build && npm run build:verify && npm run test:json:local && npm run verify"
   },
   "devDependencies": {
     "@types/k6": "^0.52.0",

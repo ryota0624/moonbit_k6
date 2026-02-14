@@ -1,5 +1,7 @@
 # ryota0624/k6
 
+![Test](https://github.com/ryota0624/k6-moonbit/workflows/Test%20k6%20MoonBit%20Library/badge.svg)
+
 [k6](https://k6.io/)のMoonBitバインディング - モダンな負荷テストツール
 
 ## 概要
@@ -47,6 +49,16 @@
 ## はじめに
 
 _（準備中 - example/ディレクトリのサンプルを参照してください）_
+
+## テスト
+
+このライブラリには自動化されたテストスイートが含まれています：
+
+- **test_on_k6/**: MoonBitで書いたシナリオが実際のk6ランタイム上で動作するかを検証
+- 期待値駆動のテスト設計（expectations.json）
+- GitHub Actionsによる自動CI実行
+
+詳細は[test_on_k6/README.md](test_on_k6/README.md)を参照してください。
 
 ## 開発
 
