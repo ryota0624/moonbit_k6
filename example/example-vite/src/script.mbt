@@ -19,18 +19,22 @@ pub fn default() -> Unit {
     // Get environment variable
     let url = match @k6.env("TEST_URL") {
       Some(u) => u
-      None => "http://localhost:8080"
+      None => "https://test.k6.io"
     }
 
-    // Log VU and iteration info (variables not used, just demonstrating the API)
+    // Perform HTTP GET request
+    let res = @k6.get(url)
+
+    // Log VU and iteration info
     let _vu_id = @k6.vu()
     let _iter_id = @k6.iter()
+
+    // Log response status (using check would be better, but for now just verify we got a response)
+    let _status = res.status
 
     // Sleep for 1 second
     @k6.sleep(1.0)
 
-    // Check would go here (when http module is implemented)
-    // For now, just return
     ()
   })
 }
