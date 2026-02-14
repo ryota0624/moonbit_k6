@@ -1,119 +1,83 @@
-# k6 MoonBit Example
+# k6 MoonBit Examples
 
-MoonBitでk6負荷テストを記述する方法を示すサンプルです。
+MoonBitでk6負荷テストを記述する方法を示すサンプル集です。
+
+## ディレクトリ構成
+
+このディレクトリには、2つの異なるビルド方法のサンプルが含まれています:
+
+### 📁 example-moonbit/ (推奨)
+
+**Moon Build** を使用した従来の方法です。
+
+- シンプルで分かりやすい
+- 追加の依存関係が少ない
+- 安定した動作
+
+**使い方:**
+```bash
+cd example-moonbit
+npm install
+npm run build
+npm run k6
+```
+
+詳細は [example-moonbit/README.md](./example-moonbit/README.md) を参照してください。
+
+### 📁 example-vite/ (実験的)
+
+**Vite + vite-plugin-moonbit** を使用したモダンな方法です。
+
+- モダンなビルドツールチェーン
+- ホットリロード対応
+- プラグインによる拡張性
+
+**使い方:**
+```bash
+cd example-vite
+npm install --legacy-peer-deps
+npm run build
+npm run k6
+```
+
+詳細は [example-vite/README.md](./example-vite/README.md) を参照してください。
+
+## どちらを使うべきか？
+
+### example-moonbit を推奨する場合
+- ✅ シンプルで確実なビルドが必要
+- ✅ 追加の依存関係を避けたい
+- ✅ 本番環境での利用
+
+### example-vite を推奨する場合
+- ⚡ 開発時のホットリロードが欲しい
+- 🔧 Viteエコシステムとの統合が必要
+- 🧪 実験的な機能を試したい
+
+**初めての方は `example-moonbit/` から始めることをお勧めします。**
+
+## 共通の内容
+
+両方のサンプルは同じMoonBitコードを使用しています:
+
+- `src/script.mbt`: k6負荷テストスクリプト
+- `src/moon.pkg`: パッケージ設定
+- `moon.mod.json`: モジュール設定
+
+違いはビルド方法のみです。
 
 ## 必要なもの
 
 - [MoonBit](https://www.moonbitlang.com/) がインストールされていること
 - Node.js と npm/pnpm
-- Docker と Docker Compose
-
-## セットアップ
-
-1. 依存関係をインストール:
-
-```bash
-npm install
-# または
-pnpm install
-```
-
-2. MoonBitスクリプトをビルド:
-
-```bash
-npm run build
-# または
-pnpm build
-```
-
-以下の処理が実行されます:
-1. `moon build --target js` でMoonBitコードをJavaScriptにコンパイル
-2. 出力を `dist/script.js` にコピー
-3. k6互換形式（`export default` と `export options`）に変換
-
-**注:** Viteビルド（`npm run build:vite`）も利用可能ですが、依存関係の設定が必要です。
-
-## 負荷テストの実行
-
-### Docker Composeを使う場合
-
-最も簡単な実行方法:
-
-```bash
-docker-compose up
-```
-
-以下が実行されます:
-1. ポート8080でシンプルなnginxサーバを起動
-2. サーバに対してk6負荷テストを実行
-3. テスト結果を表示
-
-### ローカル実行（Dockerなし）
-
-1. ローカルサーバを起動（任意のHTTPサーバ）:
-
-```bash
-# テストサーバを起動
-cd server && python -m http.server 8080
-```
-
-2. ビルド済みスクリプトでk6を実行:
-
-```bash
-k6 run dist/script.js
-```
-
-## スクリプトの構造
-
-MoonBitスクリプト（`src/script.mbt`）は以下を実演します:
-
-- `@k6` エイリアスでk6ライブラリをインポート
-- JavaScriptオブジェクトとしてテストオプションを定義（k6向けにエクスポート）
-- k6グローバル関数の使用（group, sleep, env, vu, iter）
-- 基本的な負荷テストの構造
-- MoonBitによる型安全なAPI呼び出し
-
-### 仕組み
-
-1. **MoonBitコード**: 型安全なMoonBitで記述
-2. **コンパイル**: `moon build --target js` でJavaScriptにコンパイル
-3. **後処理**: `scripts/post-build.js` がk6形式に変換:
-   - `options`関数をオブジェクトに変換: `const __options = options()`
-   - k6互換形式でエクスポート: `export { __options as options, default }`
-
-## カスタマイズ
-
-### テストオプション
-
-`src/script.mbt` の `options` を編集:
-
-```moonbit
-pub fn options() -> @core.Any {
-  let opts = @core.new_object()
-  opts["vus"] = @core.any(10)        // 仮想ユーザー数
-  opts["duration"] = @core.any("30s") // テスト期間
-  opts
-}
-```
-
-### テストURL
-
-`TEST_URL` 環境変数を設定:
-
-```bash
-TEST_URL=http://example.com k6 run dist/script.js
-```
-
-または `docker-compose.yml` で設定:
-
-```yaml
-environment:
-  - TEST_URL=http://your-server.com
-```
+- Docker と Docker Compose (オプション)
+- k6 (ローカル実行の場合)
 
 ## 次のステップ
 
-- `k6/http` モジュール実装後、HTTPリクエストを追加
-- カスタムメトリクスの追加
-- より複雑なテストシナリオの追加
-- チェックとしきい値の実装
+サンプルを実行した後は:
+
+1. `src/script.mbt` を編集してテストシナリオをカスタマイズ
+2. `k6/http` モジュール実装後、HTTPリクエストを追加
+3. カスタムメトリクスやしきい値を設定
+4. 実際のサービスに対して負荷テストを実行

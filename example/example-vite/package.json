@@ -1,0 +1,21 @@
+{
+  "name": "k6-moonbit-example-vite",
+  "version": "0.1.0",
+  "description": "Example k6 scripts written in MoonBit (Vite Build)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "k6": "k6 run dist/script.js",
+    "k6:docker": "docker-compose up"
+  },
+  "devDependencies": {
+    "@types/k6": "^0.52.0",
+    "vite": "^5.0.0",
+    "vite-plugin-moonbit": "^0.1.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

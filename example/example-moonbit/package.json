@@ -1,7 +1,7 @@
 {
-  "name": "k6-moonbit-example",
+  "name": "k6-moonbit-example-moon",
   "version": "0.1.0",
-  "description": "Example k6 scripts written in MoonBit",
+  "description": "Example k6 scripts written in MoonBit (Moon Build)",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,14 +9,11 @@
     "build:copy": "mkdir -p dist && cp _build/js/debug/build/src/src.js dist/script.js",
     "build:post": "node scripts/post-build.js",
     "build": "npm run build:moon && npm run build:copy && npm run build:post",
-    "build:vite": "vite build",
     "k6": "k6 run dist/script.js",
     "k6:docker": "docker-compose up"
   },
   "devDependencies": {
-    "@types/k6": "^0.52.0",
-    "vite": "^5.0.0",
-    "vite-plugin-moonbit": "^0.1.5"
+    "@types/k6": "^0.52.0"
   },
   "engines": {
     "node": ">=18"
