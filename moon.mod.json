@@ -7,7 +7,7 @@
   "readme": "README.mbt.md",
   "repository": "",
   "license": "Apache-2.0",
-  "keywords": [],
-  "description": "",
+  "keywords": ["k6", "load testing"],
+  "description": "A MoonBit module for k6 load testing scripts, providing utilities and abstractions to enhance the development experience of k6 scripts using MoonBit.",
   "preferred-target": "js"
 }
