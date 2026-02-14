@@ -1,0 +1,7 @@
+// import {
+//   "ryota0624/k6" @lib,
+// }
+
+options(
+  "is-main": true,
+)
