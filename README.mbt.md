@@ -1,43 +1,32 @@
 # ryota0624/k6
 
-![Test](https://github.com/ryota0624/k6-moonbit/workflows/Test%20k6%20MoonBit%20Library/badge.svg)
-
-[k6](https://k6.io/)のMoonBitバインディング - モダンな負荷テストツール
+[k6](https://k6.io/)のMoonBitバインディング 
 
 ## 概要
 
 このライブラリは、k6 JavaScript APIの型安全なMoonBitバインディングを提供します。MoonBitで完全な型安全性を持つ負荷テストを記述し、JavaScriptにコンパイルしてk6で実行できます。
 
-## 機能
-
-- 🎯 k6 APIの完全な型安全バインディング
-- 🔧 [@types/k6](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/k6)の定義をベースに実装
-- 📦 [vite-plugin-moonbit](https://github.com/mizchi/vite-plugin-moonbit)でバンドル
-- 🐳 Docker Composeのサンプル環境を同梱
-
-## k6モジュールのカバレッジ
-
-このライブラリは、すべてのk6モジュールのバインディング提供を目指しています：
+## 提供機能
 
 ### コアモジュール
-- [ ] `k6` - コアAPI（check、fail、group、sleepなど）
-- [ ] `k6/global` - グローバル変数（__ENV、__VU、__ITER、openなど）
+- [x] `k6` - コアAPI（check、fail、group、sleepなど）
+- [x] `k6/global` - グローバル変数（__ENV、__VU、__ITER、openなど）
 
 ### ネットワーク＆プロトコル
-- [ ] `k6/http` - HTTPクライアント
+- [x] `k6/http` - HTTPクライアント
 - [ ] `k6/websockets` - WebSocketクライアント
-- [ ] `k6/ws` - WebSocket代替API
+- [x] `k6/ws` - WebSocket代替API
 - [ ] `k6/net/grpc` - gRPCクライアント
 
 ### データ＆エンコーディング
-- [ ] `k6/data` - データ処理ユーティリティ
-- [ ] `k6/encoding` - エンコード/デコードユーティリティ
-- [ ] `k6/crypto` - 暗号化関数
+- [x] `k6/data` - データ処理ユーティリティ
+- [x] `k6/encoding` - エンコード/デコードユーティリティ
+- [x] `k6/crypto` - 暗号化関数
 
 ### テスト＆メトリクス
-- [ ] `k6/metrics` - カスタムメトリクス
-- [ ] `k6/options` - テスト設定
-- [ ] `k6/execution` - テスト実行コンテキスト
+- [x] `k6/metrics` - カスタムメトリクス
+- [x] `k6/options` - テスト設定
+- [x] `k6/execution` - テスト実行コンテキスト
 
 ### ユーティリティ
 - [ ] `k6/html` - HTMLパーサー
@@ -49,16 +38,6 @@
 ## はじめに
 
 _（準備中 - example/ディレクトリのサンプルを参照してください）_
-
-## テスト
-
-このライブラリには自動化されたテストスイートが含まれています：
-
-- **test_on_k6/**: MoonBitで書いたシナリオが実際のk6ランタイム上で動作するかを検証
-- 期待値駆動のテスト設計（expectations.json）
-- GitHub Actionsによる自動CI実行
-
-詳細は[test_on_k6/README.md](test_on_k6/README.md)を参照してください。
 
 ## 開発
 
