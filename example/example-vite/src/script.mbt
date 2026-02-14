@@ -21,23 +21,30 @@ pub fn options() -> @core.Any {
 ///|
 /// Main entry point for k6 - executed for each VU iteration
 pub fn default() -> Unit {
-  @k6.group("HTTP GET Test", fn() {
+  @k6.group("HTTP GET Test with Builder", fn() {
     // Get environment variable
     let url = match @k6.env("TEST_URL") {
       Some(u) => u
       None => "https://test.k6.io"
     }
 
-    // Perform HTTP GET request
-    let res = @k6.get(url)
+    // Use Request Builder for fluent API
+    let res = @k6.RequestBuilder::get(url)
+      .header("User-Agent", "k6-moonbit/0.1.0")
+      .tag("test", "get")
+      .timeout("5s")
+      .send()
 
-    // Log response status
-    let _status = res.status
+    // Type-safe checks
+    let _check1 = @k6.check_status_ok(res)
+    let _check2 = @k6.check_response(res, "body not empty", fn(r) {
+      r.body.length() > 0
+    })
 
     ()
   })
 
-  @k6.group("HTTP POST Test", fn() {
+  @k6.group("HTTP POST Test with Builder", fn() {
     let url = "https://httpbin.org/post"
 
     // Create request body
@@ -45,15 +52,19 @@ pub fn default() -> Unit {
     body["name"] = @core.any("test")
     body["value"] = @core.any(123)
 
-    // Perform HTTP POST request
-    let res = @k6.post(url, @core.any(body))
+    // Use Request Builder with JSON
+    let res = @k6.RequestBuilder::post(url)
+      .json(@core.any(body))
+      .header("X-Custom-Header", "moonbit")
+      .tag("test", "post")
+      .send()
 
-    // Log response status
-    let _status = res.status
+    // Check status is 200
+    let _check = @k6.check_status_200(res)
 
     ()
   })
 
-  // Sleep for 1 second
-  @k6.sleep(1.0)
+  // Think time (user simulation)
+  @k6.think(1.0)
 }
