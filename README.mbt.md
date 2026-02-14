@@ -35,13 +35,9 @@
 - [ ] `k6/browser` - ブラウザ自動化（実験的機能）
 - [ ] `k6/experimental` - 実験的機能
 
-## はじめに
+## 利用例
 
-_（準備中 - example/ディレクトリのサンプルを参照してください）_
-
-## 開発
-
-実装計画については[docs/steering/20260214_k6_moonbit_facade.md](docs/steering/20260214_k6_moonbit_facade.md)を参照してください。
+[exampleディレクトリ](./example)には、MoonBitで書かれたk6スクリプトのサンプルが含まれています。
 
 ## ライセンス
 
