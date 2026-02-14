@@ -1,6 +1,6 @@
 {
   "name": "ryota0624/k6",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "deps": {
     "mizchi/js": "0.10.14"
   },
