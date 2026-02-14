@@ -34,11 +34,11 @@ https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/k6 を参�
   - [x] ~~Params型~~
 
 ### Priority 2: Metrics & Options (設定・計測)
-- [ ] `k6/metrics` カスタムメトリクス
-  - [ ] Counter
-  - [ ] Gauge
-  - [ ] Rate
-  - [ ] Trend
+- [x] ~~`k6/metrics` カスタムメトリクス~~
+  - [x] ~~Counter~~
+  - [x] ~~Gauge~~
+  - [x] ~~Rate~~
+  - [x] ~~Trend~~
 - [ ] `k6/options` テスト設定
   - [ ] Options型
   - [ ] Thresholds
