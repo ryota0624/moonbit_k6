@@ -45,17 +45,17 @@ https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/k6 を参�
   - [x] ~~Scenarios~~
 
 ### Priority 3: Additional Protocols
-- [ ] `k6/websockets` WebSocketクライアント
-- [ ] `k6/ws` WebSocket代替API
-- [ ] `k6/net/grpc` gRPCクライアント
+- [x] ~~`k6/websockets` WebSocketクライアント~~
+- [x] ~~`k6/ws` WebSocket代替API~~
+- [ ] `k6/net/grpc` gRPCクライアント（複雑なため未実装）
 
 ### Priority 4: Utilities
-- [ ] `k6/data` データ処理
-- [ ] `k6/encoding` エンコーディング
-- [ ] `k6/crypto` 暗号化
-- [ ] `k6/html` HTMLパース
-- [ ] `k6/timers` タイマー
-- [ ] `k6/execution` 実行コンテキスト
+- [x] ~~`k6/data` データ処理~~
+- [x] ~~`k6/encoding` エンコーディング~~
+- [x] ~~`k6/crypto` 暗号化~~
+- [ ] `k6/html` HTMLパース（未実装）
+- [ ] `k6/timers` タイマー（未実装）
+- [x] ~~`k6/execution` 実行コンテキスト~~
 
 ### Priority 5: Advanced Features
 - [ ] `k6/secrets` シークレット管理
@@ -104,6 +104,13 @@ https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/k6 を参�
 ✅ Priority 2: Metrics & Options - 完全完了
   - k6/metrics モジュール（Counter, Gauge, Rate, Trend）
   - k6/options モジュール（Options型, Thresholds, Scenarios）
+✅ Priority 3: Additional Protocols - 部分完了
+  - k6/ws モジュール（WebSocket基本機能）
+✅ Priority 4: Utilities - 大部分完了
+  - k6/encoding（base64エンコード/デコード）
+  - k6/crypto（ハッシュ関数、HMAC、ランダムバイト）
+  - k6/data（SharedArray）
+  - k6/execution（実行コンテキスト情報）
 
 ## 次のステップ
 
