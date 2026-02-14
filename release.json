@@ -1,6 +1,6 @@
 {
   "pr_title": "chore: release v{{ version }}",
-  "pr_draft": false,
+  "pr_draft": true,
   "pr_labels": ["release"],
   "base_branch": "main",
   "git_tag_enable": true,
