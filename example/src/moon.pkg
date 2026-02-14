@@ -1,8 +1,8 @@
 import {
-  "mizchi/js/core" @core,
+  "ryota0624/k6" @k6,
 }
 
 options(
-  "is-main": false,
+  "is-main": true,
   "supported-targets": [ "js" ],
 )

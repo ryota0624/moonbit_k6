@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>k6 Test Server</title>
+</head>
+<body>
+    <h1>k6 Load Test Target</h1>
+    <p>This is a simple server for k6 load testing.</p>
+    <p>Current time: <span id="time"></span></p>
+
+    <script>
+        setInterval(() => {
+            document.getElementById('time').textContent = new Date().toLocaleString();
+        }, 1000);
+    </script>
+</body>
+</html>
