@@ -1,0 +1,10 @@
+{
+  "pr_title": "chore: release v{{ version }}",
+  "pr_draft": false,
+  "pr_labels": ["release"],
+  "base_branch": "main",
+  "git_tag_enable": true,
+  "git_release_enable": true,
+  "moon_publish": false,
+  "npm_publish": false
+}
