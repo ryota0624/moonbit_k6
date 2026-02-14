@@ -25,16 +25,29 @@ pub fn default() -> Unit {
     // Perform HTTP GET request
     let res = @k6.get(url)
 
-    // Log VU and iteration info
-    let _vu_id = @k6.vu()
-    let _iter_id = @k6.iter()
-
-    // Log response status (using check would be better, but for now just verify we got a response)
+    // Log response status
     let _status = res.status
-
-    // Sleep for 1 second
-    @k6.sleep(1.0)
 
     ()
   })
+
+  @k6.group("HTTP POST Test", fn() {
+    let url = "https://httpbin.org/post"
+
+    // Create request body
+    let body = @core.new_object()
+    body["name"] = @core.any("test")
+    body["value"] = @core.any(123)
+
+    // Perform HTTP POST request
+    let res = @k6.post(url, @core.any(body))
+
+    // Log response status
+    let _status = res.status
+
+    ()
+  })
+
+  // Sleep for 1 second
+  @k6.sleep(1.0)
 }

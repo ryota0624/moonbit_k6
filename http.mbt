@@ -52,6 +52,36 @@ extern "js" fn ffi_get(url : String) -> @core.Any = "get"
 extern "js" fn ffi_get_with_params(url : String, params : @core.Any) -> @core.Any =
   "get"
 
+///|
+/// FFI: HTTP POST request
+#module("k6/http")
+extern "js" fn ffi_post(url : String, body : @core.Any) -> @core.Any = "post"
+
+///|
+/// FFI: HTTP POST request with params
+#module("k6/http")
+extern "js" fn ffi_post_with_params(
+  url : String,
+  body : @core.Any,
+  params : @core.Any
+) -> @core.Any =
+  "post"
+
+///|
+/// FFI: HTTP PUT request
+#module("k6/http")
+extern "js" fn ffi_put(url : String, body : @core.Any) -> @core.Any = "put"
+
+///|
+/// FFI: HTTP PATCH request
+#module("k6/http")
+extern "js" fn ffi_patch(url : String, body : @core.Any) -> @core.Any = "patch"
+
+///|
+/// FFI: HTTP DELETE request
+#module("k6/http")
+extern "js" fn ffi_delete(url : String) -> @core.Any = "del"
+
 ///| Public API - GET
 
 ///|
@@ -65,5 +95,52 @@ pub fn get(url : String) -> Response {
 /// Performs an HTTP GET request with parameters
 pub fn get_with_params(url : String, params : @core.Any) -> Response {
   let res = ffi_get_with_params(url, params)
+  response_from_js(res)
+}
+
+///| Public API - POST
+
+///|
+/// Performs an HTTP POST request
+pub fn post(url : String, body : @core.Any) -> Response {
+  let res = ffi_post(url, body)
+  response_from_js(res)
+}
+
+///|
+/// Performs an HTTP POST request with parameters
+pub fn post_with_params(
+  url : String,
+  body : @core.Any,
+  params : @core.Any
+) -> Response {
+  let res = ffi_post_with_params(url, body, params)
+  response_from_js(res)
+}
+
+///| Public API - PUT
+
+///|
+/// Performs an HTTP PUT request
+pub fn put(url : String, body : @core.Any) -> Response {
+  let res = ffi_put(url, body)
+  response_from_js(res)
+}
+
+///| Public API - PATCH
+
+///|
+/// Performs an HTTP PATCH request
+pub fn patch(url : String, body : @core.Any) -> Response {
+  let res = ffi_patch(url, body)
+  response_from_js(res)
+}
+
+///| Public API - DELETE
+
+///|
+/// Performs an HTTP DELETE request
+pub fn delete(url : String) -> Response {
+  let res = ffi_delete(url)
   response_from_js(res)
 }
