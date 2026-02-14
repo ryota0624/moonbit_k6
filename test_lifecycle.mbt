@@ -34,7 +34,7 @@ pub fn Test::new() -> Test {
 
 ///|
 /// Set setup data
-pub fn Test::set_setup_data(self : Test, data : @core.Any) -> Test {
+pub fn Test::set_setup_data(_self : Test, data : @core.Any) -> Test {
   { setup_data: Some(data) }
 }
 
@@ -58,7 +58,7 @@ pub fn setup_database() -> @core.Any {
 
 ///|
 /// Example: Teardown database connection
-pub fn teardown_database(data : @core.Any) -> Unit {
+pub fn teardown_database(_data : @core.Any) -> Unit {
   // Clean up database connection
   ()
 }
@@ -142,14 +142,14 @@ pub fn setup_test_urls(base_url : String) -> @core.Any {
 
 ///|
 /// Log test summary in teardown
-pub fn log_test_summary(data : @core.Any) -> Unit {
+pub fn log_test_summary(_data : @core.Any) -> Unit {
   // Would log test results
   ()
 }
 
 ///|
 /// Clean up resources in teardown
-pub fn cleanup_resources(data : @core.Any) -> Unit {
+pub fn cleanup_resources(_data : @core.Any) -> Unit {
   // Clean up any resources created during test
   ()
 }

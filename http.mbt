@@ -23,14 +23,14 @@ fn params_to_js(params : Params) -> @core.Any {
   let obj = @core.new_object()
 
   // Convert headers map to JS object
-  if params.headers.size() > 0 {
+  if params.headers.length() > 0 {
     let headers_obj = @core.new_object()
     params.headers.each(fn(key, value) { headers_obj[key] = @core.any(value) })
     obj["headers"] = @core.any(headers_obj)
   }
 
   // Convert tags map to JS object
-  if params.tags.size() > 0 {
+  if params.tags.length() > 0 {
     let tags_obj = @core.new_object()
     params.tags.each(fn(key, value) { tags_obj[key] = @core.any(value) })
     obj["tags"] = @core.any(tags_obj)
@@ -67,10 +67,9 @@ fn response_from_js(obj : @core.Any) -> Response {
   let status_text : String = obj["status_text"].cast()
   let body : String = obj["body"].cast()
 
-  // Extract headers
-  let headers_obj : @core.Any = obj["headers"]
+  // Extract headers (TODO: Convert headers object to Map)
+  let _headers_obj : @core.Any = obj["headers"]
   let headers : Map[String, String] = Map::new()
-  // TODO: Convert headers object to Map
 
   {
     status,
@@ -130,7 +129,7 @@ extern "js" fn ffi_delete(url : String) -> @core.Any = "del"
 /// FFI: HTTP request (generic)
 #module("k6/http")
 extern "js" fn ffi_request(
-  method : String,
+  http_method : String,
   url : String,
   body : @core.Any,
   params : @core.Any
@@ -156,13 +155,13 @@ pub fn batch(requests : @core.Any) -> @core.Any {
 ///|
 /// Performs a generic HTTP request
 pub fn request(
-  method : String,
+  http_method : String,
   url : String,
   body : @core.Any,
   params : Params
 ) -> Response {
   let params_obj = params_to_js(params)
-  let res = ffi_request(method, url, body, params_obj)
+  let res = ffi_request(http_method, url, body, params_obj)
   response_from_js(res)
 }
 

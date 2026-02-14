@@ -20,7 +20,7 @@ pub fn TagSet::new() -> TagSet {
 pub fn TagSet::add(self : TagSet, key : String, value : String) -> TagSet {
   let tags = self.tags
   tags.set(key, value)
-  { tags }
+  { tags, }
 }
 
 ///|
@@ -36,7 +36,7 @@ pub fn TagSet::add_all(self : TagSet, tags : Map[String, String]) -> TagSet {
 pub fn TagSet::remove(self : TagSet, key : String) -> TagSet {
   let tags = self.tags
   tags.remove(key)
-  { tags }
+  { tags, }
 }
 
 ///|
@@ -114,7 +114,7 @@ pub fn GroupConfig::tag(self : GroupConfig, key : String, value : String) -> Gro
 
 ///|
 /// Execute group with config
-pub fn GroupConfig::run[T : Default](
+pub fn[T : Default] GroupConfig::run(
   self : GroupConfig,
   body : () -> T
 ) -> T {
@@ -127,7 +127,7 @@ pub fn GroupConfig::run[T : Default](
 
 ///|
 /// Run nested groups with different tags
-pub fn nested_group[T : Default](
+pub fn[T : Default] nested_group(
   parent_name : String,
   child_name : String,
   body : () -> T
@@ -252,7 +252,7 @@ pub fn tagged_group_request(
 
 ///|
 /// Create counter with tags
-pub fn create_tagged_counter(name : String, tags : Map[String, String]) -> Counter {
+pub fn create_tagged_counter(name : String, _tags : Map[String, String]) -> Counter {
   // Note: k6 metrics don't support tags in constructor
   // Tags are applied at add() time via request params
   create_counter(name)
@@ -260,12 +260,12 @@ pub fn create_tagged_counter(name : String, tags : Map[String, String]) -> Count
 
 ///|
 /// Create rate with tags
-pub fn create_tagged_rate(name : String, tags : Map[String, String]) -> Rate {
+pub fn create_tagged_rate(name : String, _tags : Map[String, String]) -> Rate {
   create_rate(name)
 }
 
 ///|
 /// Create trend with tags
-pub fn create_tagged_trend(name : String, tags : Map[String, String]) -> Trend {
+pub fn create_tagged_trend(name : String, _tags : Map[String, String]) -> Trend {
   create_trend(name)
 }

@@ -115,7 +115,7 @@ pub fn check_all(res : Response, checks_list : Array[(String, (Response) -> Bool
 
 ///|
 /// Check any value with custom condition
-pub fn check_value[T](
+pub fn[T] check_value(
   val : T,
   name : String,
   condition : (T) -> Bool
@@ -130,18 +130,18 @@ pub fn check_value[T](
 
 ///|
 /// Check if value equals expected
-pub fn check_equals[T : Eq](val : T, expected : T, name : String) -> Bool {
+pub fn[T : Eq] check_equals(val : T, expected : T, name : String) -> Bool {
   check_value(val, name, fn(v) { v == expected })
 }
 
 ///|
 /// Check if value is greater than threshold
-pub fn check_greater[T : Compare](val : T, threshold : T, name : String) -> Bool {
+pub fn[T : Compare] check_greater(val : T, threshold : T, name : String) -> Bool {
   check_value(val, name, fn(v) { v.compare(threshold) > 0 })
 }
 
 ///|
 /// Check if value is less than threshold
-pub fn check_less[T : Compare](val : T, threshold : T, name : String) -> Bool {
+pub fn[T : Compare] check_less(val : T, threshold : T, name : String) -> Bool {
   check_value(val, name, fn(v) { v.compare(threshold) < 0 })
 }

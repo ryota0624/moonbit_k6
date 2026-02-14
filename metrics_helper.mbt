@@ -97,7 +97,7 @@ pub fn Trend::add_value(self : Trend, value : Double) -> Unit {
 
 ///|
 /// Measure execution time of a function and record to trend
-pub fn measure_time[T](trend : Trend, f : () -> T) -> T {
+pub fn[T] measure_time(trend : Trend, f : () -> T) -> T {
   // Get start time (would need actual timing in real implementation)
   let result = f()
   // Get end time and calculate duration
@@ -108,7 +108,7 @@ pub fn measure_time[T](trend : Trend, f : () -> T) -> T {
 
 ///|
 /// Measure execution time and return both result and duration
-pub fn measure_time_with_duration[T](f : () -> T) -> (T, Double) {
+pub fn[T] measure_time_with_duration(f : () -> T) -> (T, Double) {
   // Get start time
   let result = f()
   // Get end time and calculate duration
@@ -120,7 +120,7 @@ pub fn measure_time_with_duration[T](f : () -> T) -> (T, Double) {
 
 ///|
 /// Track HTTP request duration
-pub fn track_http_duration(name : String, res : Response, trend : Trend) -> Unit {
+pub fn track_http_duration(_name : String, _res : Response, trend : Trend) -> Unit {
   // k6 Response has timing information
   // For now, use a placeholder
   trend.add(100.0)

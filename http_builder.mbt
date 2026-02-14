@@ -6,7 +6,7 @@
 ///|
 /// HTTP Request Builder for fluent API
 pub struct RequestBuilder {
-  method : String
+  http_method : String
   url : String
   body : @core.Any?
   headers : Map[String, String]
@@ -18,7 +18,7 @@ pub struct RequestBuilder {
 /// Create a new GET request builder
 pub fn RequestBuilder::get(url : String) -> RequestBuilder {
   {
-    method: "GET",
+    http_method: "GET",
     url,
     body: None,
     headers: Map::new(),
@@ -31,7 +31,7 @@ pub fn RequestBuilder::get(url : String) -> RequestBuilder {
 /// Create a new POST request builder
 pub fn RequestBuilder::post(url : String) -> RequestBuilder {
   {
-    method: "POST",
+    http_method: "POST",
     url,
     body: None,
     headers: Map::new(),
@@ -44,7 +44,7 @@ pub fn RequestBuilder::post(url : String) -> RequestBuilder {
 /// Create a new PUT request builder
 pub fn RequestBuilder::put(url : String) -> RequestBuilder {
   {
-    method: "PUT",
+    http_method: "PUT",
     url,
     body: None,
     headers: Map::new(),
@@ -57,7 +57,7 @@ pub fn RequestBuilder::put(url : String) -> RequestBuilder {
 /// Create a new PATCH request builder
 pub fn RequestBuilder::patch(url : String) -> RequestBuilder {
   {
-    method: "PATCH",
+    http_method: "PATCH",
     url,
     body: None,
     headers: Map::new(),
@@ -70,7 +70,7 @@ pub fn RequestBuilder::patch(url : String) -> RequestBuilder {
 /// Create a new DELETE request builder
 pub fn RequestBuilder::delete(url : String) -> RequestBuilder {
   {
-    method: "DELETE",
+    http_method: "DELETE",
     url,
     body: None,
     headers: Map::new(),
@@ -149,8 +149,8 @@ pub fn RequestBuilder::send(self : RequestBuilder) -> Response {
 
   // Execute request
   match self.body {
-    Some(b) => request(self.method, self.url, b, params)
-    None => request(self.method, self.url, @core.any(null), params)
+    Some(b) => request(self.http_method, self.url, b, params)
+    None => request(self.http_method, self.url, @core.any(null), params)
   }
 }
 
