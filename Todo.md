@@ -78,10 +78,10 @@ https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/k6 を参�
 
 ## Phase 4: Wrapper API
 
-- [ ] k6のAPIをラップして、より使いやすいAPIを提供する
-  - [ ] MoonBit流の型安全なAPI設計
-  - [ ] Builder パターンの検討
-  - [ ] エラーハンドリングの改善
+- [x] ~~k6のAPIをラップして、より使いやすいAPIを提供する~~
+  - [x] ~~MoonBit流の型安全なAPI設計~~
+  - [x] ~~Builder パターンの検討~~
+  - [x] ~~エラーハンドリングの改善~~
 
 ## Documentation
 
@@ -111,6 +111,11 @@ https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/k6 を参�
   - k6/crypto（ハッシュ関数、HMAC、ランダムバイト）
   - k6/data（SharedArray）
   - k6/execution（実行コンテキスト情報）
+✅ Phase 4: Wrapper API - 完全完了
+  - HTTP Request Builder（流暢なAPI）
+  - 型安全なCheck API
+  - テストライフサイクル管理
+  - メトリクス便利関数
 
 ## 次のステップ
 
