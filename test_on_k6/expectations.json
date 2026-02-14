@@ -1,0 +1,53 @@
+{
+  "testName": "k6 MoonBit Library Test",
+  "expectations": [
+    {
+      "metric": "iterations",
+      "path": "metrics.iterations.count",
+      "expected": 3,
+      "type_": "exact"
+    },
+    {
+      "metric": "http_reqs",
+      "path": "metrics.http_reqs.count",
+      "expected": 6,
+      "type_": "exact"
+    },
+    {
+      "metric": "checks_value",
+      "path": "metrics.checks.value",
+      "expected": 1.0,
+      "type_": "exact"
+    },
+    {
+      "metric": "checks_passes",
+      "path": "metrics.checks.passes",
+      "expected": 9,
+      "type_": "exact"
+    },
+    {
+      "metric": "checks_fails",
+      "path": "metrics.checks.fails",
+      "expected": 0,
+      "type_": "exact"
+    },
+    {
+      "metric": "test_counter",
+      "path": "metrics.test_counter.count",
+      "expected": 3,
+      "type_": "exact"
+    },
+    {
+      "metric": "test_requests",
+      "path": "metrics.test_requests.count",
+      "expected": 6,
+      "type_": "exact"
+    },
+    {
+      "metric": "http_req_failed",
+      "path": "metrics.http_req_failed.value",
+      "expected": 0.0,
+      "type_": "exact"
+    }
+  ]
+}

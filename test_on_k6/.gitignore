@@ -1,0 +1,10 @@
+node_modules/
+dist/
+_build/
+.mooncakes/
+summary.json
+*.log
+
+# Verification script build
+verify/_build/
+verify/.mooncakes/

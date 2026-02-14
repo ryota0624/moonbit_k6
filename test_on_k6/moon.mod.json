@@ -1,0 +1,17 @@
+{
+  "name": "ryota0624/k6-test",
+  "version": "0.1.0",
+  "source": "src",
+  "deps": {
+    "ryota0624/k6": {
+      "path": "../"
+    },
+    "mizchi/js": "0.10.14"
+  },
+  "readme": "README.md",
+  "repository": "",
+  "license": "Apache-2.0",
+  "keywords": [],
+  "description": "Test suite for k6 MoonBit library",
+  "preferred-target": "js"
+}

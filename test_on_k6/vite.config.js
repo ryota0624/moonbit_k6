@@ -1,0 +1,36 @@
+import { defineConfig } from "vite";
+import moonbit from "vite-plugin-moonbit";
+
+export default defineConfig({
+  plugins: [
+    moonbit({
+      target: "js",
+      buildMode: "release",
+      showLogs: true,
+    }),
+  ],
+  build: {
+    outDir: "dist",
+    lib: {
+      entry: "index.js",
+      name: "k6Test",
+      fileName: "test",
+      formats: ["es"],
+    },
+    rollupOptions: {
+      external: [
+        "k6",
+        "k6/execution",
+        "k6/http",
+        "k6/metrics",
+        "k6/ws",
+        "k6/encoding",
+        "k6/crypto",
+        "k6/data",
+      ],
+      output: {
+        exports: "named",
+      },
+    },
+  },
+});

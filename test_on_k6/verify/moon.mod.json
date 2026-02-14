@@ -1,0 +1,10 @@
+{
+  "name": "ryota0624/k6-verify",
+  "version": "0.1.0",
+  "source": "src",
+  "deps": {},
+  "readme": "README.md",
+  "license": "Apache-2.0",
+  "description": "k6 test verification script",
+  "preferred-target": "js"
+}

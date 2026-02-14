@@ -4,3 +4,9 @@ _build/
 .moonagent/
 # Example directories
 example/.mooncakes/
+# Test directories
+test_on_k6/node_modules/
+test_on_k6/dist/
+test_on_k6/_build/
+test_on_k6/.mooncakes/
+test_on_k6/summary.json

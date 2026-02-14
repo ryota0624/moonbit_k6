@@ -1,0 +1,14 @@
+import {
+  "moonbitlang/core/json" @json,
+}
+
+options(
+  "is-main": true,
+  "supported-targets": [ "js" ],
+  link: {
+    "js": {
+      "exports": [],
+      "format": "esm",
+    },
+  },
+)

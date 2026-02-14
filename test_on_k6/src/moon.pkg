@@ -1,0 +1,15 @@
+import {
+  "ryota0624/k6" @k6,
+  "mizchi/js/core" @core,
+}
+
+options(
+  "supported-targets": [ "js" ],
+  link: {
+    "js": {
+      "exports": [ "default", "options", "setup", "teardown" ],
+      "format": "esm",
+    },
+  },
+)
+
