@@ -1,6 +1,50 @@
 // k6/http MoonBit Facade
 // HTTP client for k6 load testing
 
+///| Params Type
+
+///|
+/// HTTP request parameters
+pub struct Params {
+  headers : Map[String, String]
+  tags : Map[String, String]
+  timeout : String?
+}
+
+///|
+/// Create default Params
+pub fn Params::default() -> Params {
+  { headers: Map::new(), tags: Map::new(), timeout: None }
+}
+
+///|
+/// Convert Params to JS object
+fn params_to_js(params : Params) -> @core.Any {
+  let obj = @core.new_object()
+
+  // Convert headers map to JS object
+  if params.headers.size() > 0 {
+    let headers_obj = @core.new_object()
+    params.headers.each(fn(key, value) { headers_obj[key] = @core.any(value) })
+    obj["headers"] = @core.any(headers_obj)
+  }
+
+  // Convert tags map to JS object
+  if params.tags.size() > 0 {
+    let tags_obj = @core.new_object()
+    params.tags.each(fn(key, value) { tags_obj[key] = @core.any(value) })
+    obj["tags"] = @core.any(tags_obj)
+  }
+
+  // Add timeout if present
+  match params.timeout {
+    Some(t) => obj["timeout"] = @core.any(t)
+    None => ()
+  }
+
+  @core.any(obj)
+}
+
 ///| Response Type
 
 ///|
@@ -81,6 +125,46 @@ extern "js" fn ffi_patch(url : String, body : @core.Any) -> @core.Any = "patch"
 /// FFI: HTTP DELETE request
 #module("k6/http")
 extern "js" fn ffi_delete(url : String) -> @core.Any = "del"
+
+///|
+/// FFI: HTTP request (generic)
+#module("k6/http")
+extern "js" fn ffi_request(
+  method : String,
+  url : String,
+  body : @core.Any,
+  params : @core.Any
+) -> @core.Any =
+  "request"
+
+///|
+/// FFI: HTTP batch request
+#module("k6/http")
+extern "js" fn ffi_batch(requests : @core.Any) -> @core.Any = "batch"
+
+///| Public API - Batch
+
+///|
+/// Performs multiple HTTP requests in parallel
+/// Takes an array of request objects and returns an array of responses
+pub fn batch(requests : @core.Any) -> @core.Any {
+  ffi_batch(requests)
+}
+
+///| Public API - Generic Request
+
+///|
+/// Performs a generic HTTP request
+pub fn request(
+  method : String,
+  url : String,
+  body : @core.Any,
+  params : Params
+) -> Response {
+  let params_obj = params_to_js(params)
+  let res = ffi_request(method, url, body, params_obj)
+  response_from_js(res)
+}
 
 ///| Public API - GET
 
