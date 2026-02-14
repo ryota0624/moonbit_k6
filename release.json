@@ -5,6 +5,6 @@
   "base_branch": "main",
   "git_tag_enable": true,
   "git_release_enable": true,
-  "moon_publish": false,
+  "moon_publish": true,
   "npm_publish": false
 }
