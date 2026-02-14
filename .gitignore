@@ -10,3 +10,4 @@ test_on_k6/dist/
 test_on_k6/_build/
 test_on_k6/.mooncakes/
 test_on_k6/summary.json
+target/
