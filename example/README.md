@@ -1,115 +1,117 @@
 # k6 MoonBit Example
 
-This example demonstrates how to write k6 load tests in MoonBit.
+MoonBitでk6負荷テストを記述する方法を示すサンプルです。
 
-## Prerequisites
+## 必要なもの
 
-- [MoonBit](https://www.moonbitlang.com/) installed
-- Node.js and npm/pnpm
-- Docker and Docker Compose
+- [MoonBit](https://www.moonbitlang.com/) がインストールされていること
+- Node.js と npm/pnpm
+- Docker と Docker Compose
 
-## Setup
+## セットアップ
 
-1. Install dependencies:
+1. 依存関係をインストール:
 
 ```bash
 npm install
-# or
+# または
 pnpm install
 ```
 
-2. Build the MoonBit script:
+2. MoonBitスクリプトをビルド:
 
 ```bash
 npm run build
-# or
+# または
 pnpm build
 ```
 
-This will:
-1. Compile `src/script.mbt` to JavaScript with MoonBit
-2. Copy the output to `dist/script.js`
-3. Post-process to convert to k6-compatible format (`export default` and `export options`)
+以下の処理が実行されます:
+1. MoonBitで `src/script.mbt` をJavaScriptにコンパイル
+2. 出力を `dist/script.js` にコピー
+3. k6互換形式（`export default` と `export options`）に変換
 
-## Running the Load Test
+## 負荷テストの実行
 
-### With Docker Compose
+### Docker Composeを使う場合
 
-The easiest way to run the example:
+最も簡単な実行方法:
 
 ```bash
 docker-compose up
 ```
 
-This will:
-1. Start a simple nginx server on port 8080
-2. Run the k6 load test against the server
-3. Display the test results
+以下が実行されます:
+1. ポート8080でシンプルなnginxサーバを起動
+2. サーバに対してk6負荷テストを実行
+3. テスト結果を表示
 
-### Locally (without Docker)
+### ローカル実行（Dockerなし）
 
-1. Start a local server (or use any HTTP server):
+1. ローカルサーバを起動（任意のHTTPサーバ）:
 
 ```bash
-# Start the test server
+# テストサーバを起動
 cd server && python -m http.server 8080
 ```
 
-2. Run k6 with the built script:
+2. ビルド済みスクリプトでk6を実行:
 
 ```bash
 k6 run dist/script.js
 ```
 
-## Script Structure
+## スクリプトの構造
 
-The MoonBit script (`src/script.mbt`) demonstrates:
+MoonBitスクリプト（`src/script.mbt`）は以下を実演します:
 
-- Importing the k6 library with `@k6` alias
-- Defining test options as a JavaScript object (exported for k6)
-- Using k6 global functions (group, sleep, env, vu, iter)
-- Structuring a basic load test
-- Type-safe API calls with MoonBit
+- `@k6` エイリアスでk6ライブラリをインポート
+- JavaScriptオブジェクトとしてテストオプションを定義（k6向けにエクスポート）
+- k6グローバル関数の使用（group, sleep, env, vu, iter）
+- 基本的な負荷テストの構造
+- MoonBitによる型安全なAPI呼び出し
 
-### How it works
+### 仕組み
 
-1. **MoonBit code**: Written in type-safe MoonBit
-2. **Compilation**: `moon build --target js` compiles to JavaScript
-3. **Post-processing**: `scripts/post-build.js` converts the output to k6 format:
-   - Converts `options` function to object: `const __options = options()`
-   - Exports in k6-compatible format: `export { __options as options, default }`
+1. **MoonBitコード**: 型安全なMoonBitで記述
+2. **コンパイル**: `moon build --target js` でJavaScriptにコンパイル
+3. **後処理**: `scripts/post-build.js` がk6形式に変換:
+   - `options`関数をオブジェクトに変換: `const __options = options()`
+   - k6互換形式でエクスポート: `export { __options as options, default }`
 
-## Customization
+## カスタマイズ
 
-### Test Options
+### テストオプション
 
-Edit the `options` in `src/script.mbt`:
+`src/script.mbt` の `options` を編集:
 
 ```moonbit
-pub let options : Options = {
-  vus: 10,        // Number of virtual users
-  duration: "30s" // Test duration
+pub fn options() -> @core.Any {
+  let opts = @core.new_object()
+  opts["vus"] = @core.any(10)        // 仮想ユーザー数
+  opts["duration"] = @core.any("30s") // テスト期間
+  opts
 }
 ```
 
-### Test URL
+### テストURL
 
-Set the `TEST_URL` environment variable:
+`TEST_URL` 環境変数を設定:
 
 ```bash
 TEST_URL=http://example.com k6 run dist/script.js
 ```
 
-Or in `docker-compose.yml`:
+または `docker-compose.yml` で設定:
 
 ```yaml
 environment:
   - TEST_URL=http://your-server.com
 ```
 
-## Next Steps
+## 次のステップ
 
-- Add HTTP requests when `k6/http` module is implemented
-- Add custom metrics
-- Add more complex test scenarios
-- Implement checks and thresholds
+- `k6/http` モジュール実装後、HTTPリクエストを追加
+- カスタムメトリクスの追加
+- より複雑なテストシナリオの追加
+- チェックとしきい値の実装
