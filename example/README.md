@@ -26,7 +26,10 @@ npm run build
 pnpm build
 ```
 
-This will compile `src/script.mbt` to JavaScript and output to `dist/script.js`.
+This will:
+1. Compile `src/script.mbt` to JavaScript with MoonBit
+2. Copy the output to `dist/script.js`
+3. Post-process to convert to k6-compatible format (`export default` and `export options`)
 
 ## Running the Load Test
 
@@ -62,10 +65,19 @@ k6 run dist/script.js
 
 The MoonBit script (`src/script.mbt`) demonstrates:
 
-- Importing the k6 library
-- Defining test options (VUs, duration)
+- Importing the k6 library with `@k6` alias
+- Defining test options as a JavaScript object (exported for k6)
 - Using k6 global functions (group, sleep, env, vu, iter)
 - Structuring a basic load test
+- Type-safe API calls with MoonBit
+
+### How it works
+
+1. **MoonBit code**: Written in type-safe MoonBit
+2. **Compilation**: `moon build --target js` compiles to JavaScript
+3. **Post-processing**: `scripts/post-build.js` converts the output to k6 format:
+   - Converts `options` function to object: `const __options = options()`
+   - Exports in k6-compatible format: `export { __options as options, default }`
 
 ## Customization
 
